@@ -10,18 +10,15 @@ $data = [
     'Bandeaux',
 ];
 
-$sql = "INSERT INTO component(name, description, price, stock) VALUES (:name, :description, :price, :stock)";
+$sql = "INSERT INTO category (name) VALUES (:name)";
     
-    $statement = $connection->prepare($sql);
+$statement = $connection->prepare($sql);
+
+foreach ($data as $beanie) {
+    $statement->bindParam(':name', $beanie, PDO::PARAM_STR);
+    $isDone = $statement->execute();
     
-    foreach ($donnees as $data) {
-        $statement->bindParam(':name', $donnee[0], PDO::PARAM_STR);
-        $statement->bindParam(':description', $donnee[1], PDO::PARAM_STR);
-        $statement->bindParam(':price', $donnee[2], PDO::PARAM_STR);
-        $statement->bindParam(':stock', $donnee[3], PDO::PARAM_STR);
-        $isDone = $statement->execute();
-        
-        if (!$isDone) {
-            throw new Exception('Erreur');
-        }
+    if (!$isDone) {
+        throw new Exception('Erreur lors de l\'insertion de la donnée : ' . $name);
     }
+}

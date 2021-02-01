@@ -3,6 +3,18 @@
 include 'includes/connect.php';
 
 $data = [];
+
+$sql = "SELECT * FROM product";
+    $statement = $connection->prepare($sql);
+    $isDone = $statement->execute();
+
+    if (!$isDone) {
+        throw new Exception('Erreur');
+    }
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    $results = $statement->fetchAll();
+    $data = $results;
+
 ?>
 
 <table>
@@ -23,3 +35,4 @@ $data = [];
         </tr>
     <?php } ?>
 </table>
+

@@ -3,6 +3,13 @@
 include 'includes/connect.php';
 
 $data = [];
+
+
+$sql = "SELECT * FROM product";
+$statement = $connection->query($sql);
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+$data = $results;
+
 ?>
 
 <table>
@@ -12,12 +19,16 @@ $data = [];
         <th>Prix</th>
         <th>En stock</th>
     </tr>
-    <?php foreach ($data as $beanie) { ?>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    <?php } ?>
+     <?php foreach ($data as $datas) {
+    echo '
+            <tr>
+                <td>' .$datas['name']. '</td>
+                <td>' .$datas['description']. '</td>
+                <td>' .$datas['price']. '</td>
+                <td>' .$datas['stock']. '</td>
+            </tr>';
+} ?>
 </table>
+
+
+
